@@ -86,6 +86,13 @@
     padding:5px 12px; border-radius:100px; font-family:inherit; font-size:inherit;
   }
   .lang-switch button.active{background:var(--signal); color:#0A0D10;}
+  .btn-hire{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px;
+    background:var(--signal); color:#0A0D10; padding:9px 18px;
+    border-radius:8px; text-decoration:none; white-space:nowrap;
+    transition:transform .15s ease;
+  }
+  .btn-hire:hover{transform:translateY(-2px);}
 
   /* HERO */
   .hero{padding:90px 0 60px; position:relative;}
@@ -265,6 +272,8 @@
         <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
         <button id="btn-id" onclick="setLang('id')">ID</button>
       </div>
+      <a class="btn-hire lang-en" href="#contact">Hire Me</a>
+      <a class="btn-hire lang-id" href="#contact">Rekrut Saya</a>
     </div>
   </div>
 </nav>
