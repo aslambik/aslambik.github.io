@@ -58,13 +58,12 @@
   .logo{font-family:'JetBrains Mono',monospace; font-weight:500; font-size:15px; white-space:nowrap;}
   .logo span{color:var(--signal);}
   .navlinks{display:flex; gap:32px; font-size:15px; color:var(--text-mute); font-family:'Inter',sans-serif; font-weight:500;}
-  .navlinks a{position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .navlinks a{position:relative; padding-bottom:6px; transition:color .2s ease; text-decoration:none;}
   .navlinks a::after{
     content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
     background:var(--signal); transition:width .2s ease;
   }
   .navlinks a:hover{color:var(--text);}
-  .navlinks a:hover::after{width:100%;}
   .navlinks a.active{color:var(--signal);}
   .navlinks a.active::after{width:100%;}
   .nav-right{display:flex; align-items:center; gap:14px;}
@@ -505,6 +504,17 @@
   }
   const saved = localStorage.getItem('site-lang');
   if(saved){ setLang(saved); }
+
+  const navlinks = document.querySelectorAll('.navlinks a');
+  navlinks.forEach(link=>{
+    link.addEventListener('click', ()=>{
+      const target = link.getAttribute('href');
+      navlinks.forEach(l=>{
+        if(l.getAttribute('href') === target){ l.classList.add('active'); }
+        else { l.classList.remove('active'); }
+      });
+    });
+  });
 
   const items = document.querySelectorAll('[data-reveal]');
   const io = new IntersectionObserver((entries)=>{
