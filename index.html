@@ -57,8 +57,16 @@
   nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px; gap:16px;}
   .logo{font-family:'JetBrains Mono',monospace; font-weight:500; font-size:15px; white-space:nowrap;}
   .logo span{color:var(--signal);}
-  .navlinks{display:flex; gap:28px; font-size:14px; color:var(--text-mute);}
+  .navlinks{display:flex; gap:32px; font-size:15px; color:var(--text-mute); font-family:'Inter',sans-serif; font-weight:500;}
+  .navlinks a{position:relative; padding-bottom:6px; transition:color .2s ease;}
+  .navlinks a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:2px;
+    background:var(--signal); transition:width .2s ease;
+  }
   .navlinks a:hover{color:var(--text);}
+  .navlinks a:hover::after{width:100%;}
+  .navlinks a.active{color:var(--signal);}
+  .navlinks a.active::after{width:100%;}
   .nav-right{display:flex; align-items:center; gap:14px;}
   .status-pill{
     display:flex; align-items:center; gap:8px;
@@ -239,8 +247,8 @@
   <div class="wrap">
     <div class="logo">aslambik<span>.github.io</span></div>
     <div class="navlinks">
-      <a href="#about" class="lang-en">About</a>
-      <a href="#about" class="lang-id">Tentang</a>
+      <a href="#about" class="lang-en active">About</a>
+      <a href="#about" class="lang-id active">Tentang</a>
       <a href="#skill" class="lang-en">Skills</a>
       <a href="#skill" class="lang-id">Skill</a>
       <a href="#project" class="lang-en lang-id">Project</a>
@@ -264,8 +272,8 @@
   <div class="hero-top">
     <div>
       <div class="eyebrow">MUHAMMAD ASLAMBIK</div>
-      <h1 class="lang-en">Building systems that<br>work <span class="accent">while you sleep.</span></h1>
-      <h1 class="lang-id">Membangun sistem yang<br>bekerja <span class="accent">saat kamu tidur.</span></h1>
+      <h1 class="lang-en">AI Automation<br>Made <span class="accent">Simple.</span></h1>
+      <h1 class="lang-id">Otomasi AI<br>Dibuat <span class="accent">Sederhana.</span></h1>
       <p class="lead lang-en">AI Automation Engineer — designing n8n workflows that connect forms, documents, AI agents, and notifications into one process that runs on its own.</p>
       <p class="lead lang-id">AI Automation Engineer — merancang workflow n8n yang menghubungkan form, dokumen, AI agent, dan notifikasi jadi satu alur kerja yang jalan sendiri.</p>
       <div class="hero-actions">
