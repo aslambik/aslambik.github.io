@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aslambik — AI Automation Engineer</title>
+<meta name="description" content="Muhammad Aslambik — AI Automation Engineer. Membangun workflow otomasi n8n dengan integrasi AI Agent untuk proses bisnis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12151A;
+    --bg-alt: #181C23;
+    --surface: #1E232C;
+    --surface-line: #2A303B;
+    --text: #EDEFF3;
+    --text-mute: #8B93A1;
+    --signal: #21D6A8;
+    --signal-dim: rgba(33,214,168,0.14);
+    --amber: #FFB454;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:-0.02em;
+  }
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,21,26,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--surface-line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .logo{font-family:'JetBrains Mono',monospace; font-weight:500; font-size:15px;}
+  .logo span{color:var(--signal);}
+  .navlinks{display:flex; gap:28px; font-size:14px; color:var(--text-mute);}
+  .navlinks a:hover{color:var(--text);}
+  .status-pill{
+    display:flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    color:var(--signal); border:1px solid rgba(33,214,168,0.3);
+    padding:6px 12px; border-radius:100px; background:var(--signal-dim);
+  }
+  .dot{width:6px; height:6px; border-radius:50%; background:var(--signal); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+  /* HERO */
+  .hero{padding:90px 0 60px; position:relative;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--signal);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--signal);}
+  .hero h1{font-size:clamp(34px,5.5vw,58px); font-weight:600; line-height:1.08; max-width:820px;}
+  .hero h1 .accent{color:var(--signal);}
+  .hero p.lead{
+    margin-top:22px; font-size:18px; color:var(--text-mute); max-width:560px;
+  }
+  .hero-actions{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:14px;
+    padding:13px 24px; border-radius:8px; border:1px solid transparent;
+    cursor:pointer; transition:transform .15s ease, border-color .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--signal); color:#0A0D10;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{border-color:var(--surface-line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--signal);}
+
+  /* FLOW DIAGRAM (signature element) */
+  .flow-stage{
+    margin-top:64px; border:1px solid var(--surface-line); border-radius:var(--radius);
+    background:var(--bg-alt); padding:32px 24px; overflow-x:auto;
+  }
+  .flow-stage .caption{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-mute);
+    margin-bottom:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .flow-svg{width:100%; min-width:720px; height:auto; display:block;}
+  .flow-node-rect{fill:var(--surface); stroke:var(--surface-line); stroke-width:1;}
+  .flow-node-label{font-family:'JetBrains Mono',monospace; font-size:11px; fill:var(--text);}
+  .flow-node-sub{font-family:'Inter',sans-serif; font-size:9px; fill:var(--text-mute);}
+  .flow-path{fill:none; stroke:var(--surface-line); stroke-width:1.5;}
+  .flow-dot{fill:var(--signal);}
+
+  /* SECTION SHARED */
+  section{padding:80px 0;}
+  .section-head{margin-bottom:44px; max-width:600px;}
+  .section-tag{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--signal); margin-bottom:12px;
+  }
+  .section-head h2{font-size:clamp(24px,3.5vw,34px); font-weight:600;}
+  .section-head p{color:var(--text-mute); margin-top:12px; font-size:15.5px;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;}
+  .about-grid p{color:var(--text-mute); font-size:15.5px; margin-bottom:16px;}
+  .about-grid p strong{color:var(--text); font-weight:500;}
+  .fact-list{border-top:1px solid var(--surface-line);}
+  .fact{
+    display:flex; justify-content:space-between; padding:16px 0;
+    border-bottom:1px solid var(--surface-line); font-size:14px;
+  }
+  .fact .k{color:var(--text-mute); font-family:'JetBrains Mono',monospace; font-size:12.5px;}
+
+  /* SKILLS */
+  .skill-groups{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+  .skill-card{
+    background:var(--surface); border:1px solid var(--surface-line); border-radius:var(--radius);
+    padding:26px;
+  }
+  .skill-card h3{font-size:15px; margin-bottom:6px;}
+  .skill-card .desc{font-size:13px; color:var(--text-mute); margin-bottom:18px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    border:1px solid var(--surface-line); padding:6px 12px; border-radius:6px;
+    color:var(--text-mute);
+  }
+  .skill-card.primary .chip{border-color:rgba(33,214,168,0.35); color:var(--text);}
+
+  /* PROJECT */
+  .project-card{
+    border:1px solid var(--surface-line); border-radius:var(--radius); overflow:hidden;
+    background:var(--bg-alt);
+  }
+  .project-top{padding:32px; border-bottom:1px solid var(--surface-line);}
+  .project-top .tag{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--amber);
+    border:1px solid rgba(255,180,84,0.3); background:rgba(255,180,84,0.08);
+    padding:4px 10px; border-radius:100px; display:inline-block; margin-bottom:16px;
+  }
+  .project-top h3{font-size:24px; margin-bottom:12px;}
+  .project-top p{color:var(--text-mute); font-size:15px; max-width:640px;}
+  .stage-list{padding:28px 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
+  .stage-item{position:relative; padding-right:16px;}
+  .stage-item:not(:last-child)::after{
+    content:''; position:absolute; top:18px; right:-4px; width:24px; height:1px;
+    background:var(--surface-line);
+  }
+  .stage-num{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--signal);
+    display:block; margin-bottom:10px;
+  }
+  .stage-item h4{font-size:14.5px; margin-bottom:6px;}
+  .stage-item p{font-size:12.5px; color:var(--text-mute); line-height:1.5;}
+  .project-foot{
+    padding:20px 32px; display:flex; gap:14px; border-top:1px solid var(--surface-line);
+  }
+
+  /* CONTACT */
+  .contact-box{
+    border:1px solid var(--surface-line); border-radius:var(--radius);
+    padding:48px; text-align:center; background:var(--bg-alt);
+  }
+  .contact-box h2{font-size:clamp(24px,4vw,36px); margin-bottom:14px;}
+  .contact-box p{color:var(--text-mute); max-width:460px; margin:0 auto 30px;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--surface-line); padding:26px 0;}
+  footer .wrap{display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-mute); flex-wrap:wrap; gap:10px;}
+
+  [data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1; transform:translateY(0);}
+
+  @media (max-width:760px){
+    .about-grid, .skill-groups{grid-template-columns:1fr;}
+    .stage-list{grid-template-columns:1fr 1fr; gap:20px;}
+    .stage-item::after{display:none;}
+    .navlinks{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">aslambik<span>.dev</span></div>
+    <div class="navlinks">
+      <a href="#tentang">Tentang</a>
+      <a href="#skill">Skill</a>
+      <a href="#project">Project</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+    <div class="status-pill"><span class="dot"></span> open for work</div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="eyebrow">MUHAMMAD ASLAMBIK</div>
+  <h1>Membangun sistem yang<br>bekerja <span class="accent">saat kamu tidur.</span></h1>
+  <p class="lead">AI Automation Engineer — merancang workflow n8n yang menghubungkan form, dokumen, AI agent, dan notifikasi jadi satu alur kerja yang jalan sendiri, dari ujung ke ujung.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#project">Lihat cara kerjanya ↓</a>
+    <a class="btn btn-ghost" href="#kontak">Hubungi saya</a>
+  </div>
+
+  <div class="flow-stage" data-reveal>
+    <div class="caption">
+      <span>WORKFLOW LIVE — cv-screening-automation.n8n</span>
+      <span>4 nodes · 1 branch · running</span>
+    </div>
+    <svg class="flow-svg" viewBox="0 0 720 140" xmlns="http://www.w3.org/2000/svg">
+      <path class="flow-path" d="M 100 70 H 220" />
+      <path class="flow-path" d="M 320 70 H 440" />
+      <path class="flow-path" d="M 540 70 H 570" />
+      <path class="flow-path" d="M 570 70 C 600 70 600 30 630 30" />
+      <path class="flow-path" d="M 570 70 C 600 70 600 110 630 110" />
+
+      <circle class="flow-dot" r="3">
+        <animateMotion dur="3.2s" repeatCount="indefinite" path="M 100 70 H 220" />
+      </circle>
+      <circle class="flow-dot" r="3">
+        <animateMotion dur="3.2s" begin="0.8s" repeatCount="indefinite" path="M 320 70 H 440" />
+      </circle>
+      <circle class="flow-dot" r="3">
+        <animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite" path="M 570 70 C 600 70 600 30 630 30" />
+      </circle>
+
+      <g>
+        <rect class="flow-node-rect" x="20" y="45" width="80" height="50" rx="8"/>
+        <text class="flow-node-label" x="60" y="66" text-anchor="middle">Form</text>
+        <text class="flow-node-sub" x="60" y="80" text-anchor="middle">submission</text>
+      </g>
+      <g>
+        <rect class="flow-node-rect" x="220" y="45" width="100" height="50" rx="8"/>
+        <text class="flow-node-label" x="270" y="66" text-anchor="middle">Extract CV</text>
+        <text class="flow-node-sub" x="270" y="80" text-anchor="middle">drive → pdf parse</text>
+      </g>
+      <g>
+        <rect class="flow-node-rect" x="440" y="45" width="100" height="50" rx="8"/>
+        <text class="flow-node-label" x="490" y="62" text-anchor="middle">AI Agent</text>
+        <text class="flow-node-sub" x="490" y="76" text-anchor="middle">scoring + JSON</text>
+        <text class="flow-node-sub" x="490" y="88" text-anchor="middle">output</text>
+      </g>
+      <g>
+        <rect class="flow-node-rect" x="630" y="8" width="80" height="44" rx="8"/>
+        <text class="flow-node-label" x="670" y="26" text-anchor="middle">Lolos</text>
+        <text class="flow-node-sub" x="670" y="40" text-anchor="middle">email + sheet</text>
+      </g>
+      <g>
+        <rect class="flow-node-rect" x="630" y="88" width="80" height="44" rx="8"/>
+        <text class="flow-node-label" x="670" y="106" text-anchor="middle">Tidak lolos</text>
+        <text class="flow-node-sub" x="670" y="120" text-anchor="middle">email + sheet</text>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<section id="tentang">
+  <div class="wrap about-grid">
+    <div data-reveal>
+      <div class="section-tag">// tentang</div>
+      <h2 style="margin-bottom:22px;">Dari menulis cerita, ke menulis alur kerja.</h2>
+      <p>Saya bekerja di titik temu antara <strong>otomasi</strong> dan <strong>AI</strong> — merancang workflow n8n yang menggantikan proses manual berulang: dari form masuk, dokumen diproses, sampai keputusan dibantu AI Agent, tanpa seseorang harus duduk mengerjakannya satu per satu.</p>
+      <p>Project andalan saya adalah <strong>sistem screening CV otomatis</strong> — mulai dari pelamar mengisi form, CV-nya diambil dan dibaca, dinilai oleh AI berdasarkan kriteria posisi, sampai email hasil terkirim otomatis ke kandidat lolos maupun tidak.</p>
+      <p>Selain automation, saya juga terbiasa mengerjakan sisi <strong>visual dan konten</strong> — desain di Canva dan pengelolaan website di WordPress — jadi satu project bisa saya kerjakan dari sistemnya sampai tampilannya.</p>
+    </div>
+    <div data-reveal>
+      <div class="fact-list">
+        <div class="fact"><span class="k">BASE</span><span>Indonesia (remote)</span></div>
+        <div class="fact"><span class="k">FOKUS</span><span>Workflow Automation & AI Agent</span></div>
+        <div class="fact"><span class="k">TOOL UTAMA</span><span>n8n</span></div>
+        <div class="fact"><span class="k">STATUS</span><span style="color:var(--signal)">Terbuka untuk project</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skill">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="section-tag">// kemampuan</div>
+      <h2>Dua sisi kerja yang saling melengkapi.</h2>
+      <p>Bisa membangun sistemnya sekaligus menyiapkan tampilan yang dilihat orang.</p>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-card primary" data-reveal>
+        <h3>Automation & AI</h3>
+        <div class="desc">Merancang dan menjalankan sistem otomatis end-to-end.</div>
+        <div class="chip-row">
+          <span class="chip">n8n</span>
+          <span class="chip">AI Agent / LLM</span>
+          <span class="chip">Google Sheets API</span>
+          <span class="chip">Google Drive API</span>
+          <span class="chip">Gmail API</span>
+          <span class="chip">Structured Output</span>
+          <span class="chip">Error Handling</span>
+        </div>
+      </div>
+      <div class="skill-card" data-reveal>
+        <h3>Design & Content</h3>
+        <div class="desc">Menyiapkan sisi yang dilihat dan digunakan langsung oleh orang.</div>
+        <div class="chip-row">
+          <span class="chip">Canva</span>
+          <span class="chip">WordPress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="project">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="section-tag">// project</div>
+      <h2>CV Screening Automation</h2>
+      <p>Alur kerja penuh dari CV masuk sampai kandidat dapat kabar — tanpa campur tangan manual.</p>
+    </div>
+
+    <div class="project-card" data-reveal>
+      <div class="project-top">
+        <span class="tag">n8n · AI Agent · Google Workspace</span>
+        <h3>Sistem rekrutmen yang menilai CV dan membalasnya sendiri</h3>
+        <p>Kandidat mengisi form lamaran, CV-nya otomatis dibaca dan dinilai oleh AI Agent berdasarkan kriteria posisi (skill, pendidikan, pengalaman), lalu sistem mengirim email berbeda ke kandidat yang lolos maupun tidak — lengkap dengan pencatatan otomatis ke Google Sheets dan notifikasi error kalau ada langkah yang gagal.</p>
+      </div>
+      <div class="stage-list">
+        <div class="stage-item">
+          <span class="stage-num">01</span>
+          <h4>Form Submission</h4>
+          <p>Pelamar mengisi data diri dan mengunggah CV lewat form.</p>
+        </div>
+        <div class="stage-item">
+          <span class="stage-num">02</span>
+          <h4>Extract CV</h4>
+          <p>File diunggah ke Drive, diunduh ulang, isinya diekstrak jadi teks.</p>
+        </div>
+        <div class="stage-item">
+          <span class="stage-num">03</span>
+          <h4>CV Scoring</h4>
+          <p>AI Agent membaca kriteria posisi dan menilai kecocokan CV dalam format terstruktur.</p>
+        </div>
+        <div class="stage-item">
+          <span class="stage-num">04</span>
+          <h4>Send Feedback</h4>
+          <p>Hasil dicatat ke sheet dan email otomatis terkirim sesuai status kelulusan.</p>
+        </div>
+      </div>
+      <div class="project-foot">
+        <a class="btn btn-ghost" href="https://github.com/aslambik" target="_blank" rel="noopener">Lihat GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontak">
+  <div class="wrap">
+    <div class="contact-box" data-reveal>
+      <div class="section-tag" style="justify-content:center; display:flex;">// kontak</div>
+      <h2>Ada proses manual yang capek dikerjakan berulang?</h2>
+      <p>Ceritakan alurnya, dan mari lihat bagian mana yang bisa dijalankan otomatis.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:job.aslambik@gmail.com">Email Saya</a>
+        <a class="btn btn-ghost" href="https://github.com/aslambik" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">aslambik.github.io</span>
+    <span>Dibangun dengan HTML murni — hosted di GitHub Pages.</span>
+  </div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  items.forEach(i=>io.observe(i));
+</script>
+
+</body>
+</html>
