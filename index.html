@@ -236,11 +236,40 @@
   [data-reveal]{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
   [data-reveal].in{opacity:1; transform:translateY(0);}
 
+  .hamburger{
+    display:none; flex-direction:column; gap:5px; background:none; border:none;
+    cursor:pointer; padding:8px; z-index:60;
+  }
+  .hamburger span{
+    width:22px; height:2px; background:var(--text); border-radius:2px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .mobile-panel{
+    display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+    background:var(--bg); z-index:49; padding:24px; overflow-y:auto;
+    flex-direction:column; gap:4px;
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{
+    padding:16px 4px; border-bottom:1px solid var(--surface-line);
+    font-size:17px; color:var(--text); text-decoration:none;
+  }
+  .mobile-panel a.active{color:var(--signal);}
+  .mobile-panel .mobile-extra{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:24px;
+  }
+
   @media (max-width:760px){
     .about-grid, .skill-groups{grid-template-columns:1fr;}
     .stage-list{grid-template-columns:1fr 1fr; gap:20px;}
     .stage-item::after{display:none;}
     .navlinks{display:none;}
+    .nav-right .status-pill{display:none;}
+    .hamburger{display:flex;}
   }
   @media (prefers-reduced-motion: reduce){
     *{animation:none !important; transition:none !important;}
@@ -274,6 +303,27 @@
       </div>
       <a class="btn-hire lang-en" href="#contact">Hire Me</a>
       <a class="btn-hire lang-id" href="#contact">Rekrut Saya</a>
+      <button class="hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobile-panel">
+    <a href="#home" class="active" onclick="closeMobileMenu()">Home</a>
+    <a href="#about" class="lang-en" onclick="closeMobileMenu()">About</a>
+    <a href="#about" class="lang-id" onclick="closeMobileMenu()">Tentang</a>
+    <a href="#skill" class="lang-en" onclick="closeMobileMenu()">Skills</a>
+    <a href="#skill" class="lang-id" onclick="closeMobileMenu()">Skill</a>
+    <a href="#project" onclick="closeMobileMenu()">Project</a>
+    <a href="#contact" class="lang-en" onclick="closeMobileMenu()">Contact</a>
+    <a href="#contact" class="lang-id" onclick="closeMobileMenu()">Kontak</a>
+    <div class="mobile-extra">
+      <div class="lang-switch">
+        <button id="btn-en-m" class="active" onclick="setLang('en')">EN</button>
+        <button id="btn-id-m" onclick="setLang('id')">ID</button>
+      </div>
+      <a class="btn-hire lang-en" href="#contact" onclick="closeMobileMenu()">Hire Me</a>
+      <a class="btn-hire lang-id" href="#contact" onclick="closeMobileMenu()">Rekrut Saya</a>
     </div>
   </div>
 </nav>
@@ -506,11 +556,22 @@
 </footer>
 
 <script>
+  function toggleMobileMenu(){
+    document.getElementById('hamburger-btn').classList.toggle('open');
+    document.getElementById('mobile-panel').classList.toggle('open');
+  }
+  function closeMobileMenu(){
+    document.getElementById('hamburger-btn').classList.remove('open');
+    document.getElementById('mobile-panel').classList.remove('open');
+  }
+
   function setLang(lang){
     document.documentElement.setAttribute('data-lang', lang);
     document.documentElement.setAttribute('lang', lang);
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-id').classList.toggle('active', lang === 'id');
+    document.getElementById('btn-en-m').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-id-m').classList.toggle('active', lang === 'id');
     localStorage.setItem('site-lang', lang);
   }
   const saved = localStorage.getItem('site-lang');
