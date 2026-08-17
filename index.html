@@ -205,6 +205,10 @@
   }
   .project-top h3{font-size:24px; margin-bottom:12px;}
   .project-top p{color:var(--text-mute); font-size:15px; max-width:640px;}
+  .project-shot{
+    display:block; width:100%; height:auto; border-top:1px solid var(--surface-line);
+    border-bottom:1px solid var(--surface-line); background:#12151A;
+  }
   .stage-list{padding:28px 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:0;}
   .stage-item{position:relative; padding-right:16px;}
   .stage-item:not(:last-child)::after{
@@ -530,6 +534,7 @@
         <p class="lang-en">A candidate fills out an application form, their CV is automatically read and scored by an AI Agent against role criteria (skills, education, experience), then the system sends a different email to shortlisted and non-shortlisted candidates — with results logged automatically to Google Sheets, and error alerts if any step fails.</p>
         <p class="lang-id">Kandidat mengisi form lamaran, CV-nya otomatis dibaca dan dinilai oleh AI Agent berdasarkan kriteria posisi (skill, pendidikan, pengalaman), lalu sistem mengirim email berbeda ke kandidat yang lolos maupun tidak — lengkap dengan pencatatan otomatis ke Google Sheets dan notifikasi error kalau ada langkah yang gagal.</p>
       </div>
+      <img class="project-shot" src="workflow-screenshot.png" alt="CV Screening Automation n8n workflow — Form Submission, Extract CV, CV Scoring, Send Feedback">
       <div class="stage-list">
         <div class="stage-item">
           <span class="stage-num">01</span>
@@ -666,20 +671,32 @@
     link.addEventListener('click', ()=> setActiveLink(link.getAttribute('href')));
   });
 
-  // Scroll-spy: highlight nav link based on which section is in view
+  // Scroll-spy: highlight nav link based on scroll position
   const sections = ['home','about','skill','project','contact']
     .map(id=>document.getElementById(id))
     .filter(Boolean);
 
-  const sectionObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        setActiveLink('#' + entry.target.id);
-      }
+  function updateActiveSection(){
+    const triggerLine = window.scrollY + window.innerHeight * 0.35;
+    let current = sections[0];
+    sections.forEach(sec=>{
+      if(sec.offsetTop <= triggerLine){ current = sec; }
     });
-  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    // Force last section active when scrolled to (or near) the bottom of the page
+    const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
+    if(atBottom){ current = sections[sections.length - 1]; }
+    setActiveLink('#' + current.id);
+  }
 
-  sections.forEach(sec=>sectionObserver.observe(sec));
+  let spyTicking = false;
+  window.addEventListener('scroll', ()=>{
+    if(!spyTicking){
+      window.requestAnimationFrame(()=>{ updateActiveSection(); spyTicking = false; });
+      spyTicking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', updateActiveSection);
+  updateActiveSection();
 
   const contactForm = document.getElementById('contact-form');
   if(contactForm){
