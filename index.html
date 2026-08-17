@@ -250,7 +250,7 @@
 
   .mobile-panel{
     display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
-    background:var(--bg); z-index:49; padding:24px; overflow-y:auto;
+    background:var(--bg); z-index:55; padding:24px; overflow-y:auto;
     flex-direction:column; gap:4px;
   }
   .mobile-panel.open{display:flex;}
@@ -310,25 +310,25 @@
       </button>
     </div>
   </div>
-  <div class="mobile-panel" id="mobile-panel">
-    <a href="#home" class="active" onclick="closeMobileMenu()">Home</a>
-    <a href="#about" class="lang-en" onclick="closeMobileMenu()">About</a>
-    <a href="#about" class="lang-id" onclick="closeMobileMenu()">Tentang</a>
-    <a href="#skill" class="lang-en" onclick="closeMobileMenu()">Skills</a>
-    <a href="#skill" class="lang-id" onclick="closeMobileMenu()">Skill</a>
-    <a href="#project" onclick="closeMobileMenu()">Project</a>
-    <a href="#contact" class="lang-en" onclick="closeMobileMenu()">Contact</a>
-    <a href="#contact" class="lang-id" onclick="closeMobileMenu()">Kontak</a>
-    <div class="mobile-extra">
-      <div class="lang-switch">
-        <button id="btn-en-m" class="active" onclick="setLang('en')">EN</button>
-        <button id="btn-id-m" onclick="setLang('id')">ID</button>
-      </div>
-      <a class="btn-hire lang-en" href="#contact" onclick="closeMobileMenu()">Hire Me</a>
-      <a class="btn-hire lang-id" href="#contact" onclick="closeMobileMenu()">Rekrut Saya</a>
-    </div>
-  </div>
 </nav>
+<div class="mobile-panel" id="mobile-panel">
+  <a href="#home" class="active" onclick="closeMobileMenu()">Home</a>
+  <a href="#about" class="lang-en" onclick="closeMobileMenu()">About</a>
+  <a href="#about" class="lang-id" onclick="closeMobileMenu()">Tentang</a>
+  <a href="#skill" class="lang-en" onclick="closeMobileMenu()">Skills</a>
+  <a href="#skill" class="lang-id" onclick="closeMobileMenu()">Skill</a>
+  <a href="#project" onclick="closeMobileMenu()">Project</a>
+  <a href="#contact" class="lang-en" onclick="closeMobileMenu()">Contact</a>
+  <a href="#contact" class="lang-id" onclick="closeMobileMenu()">Kontak</a>
+  <div class="mobile-extra">
+    <div class="lang-switch">
+      <button id="btn-en-m" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-id-m" onclick="setLang('id')">ID</button>
+    </div>
+    <a class="btn-hire lang-en" href="#contact" onclick="closeMobileMenu()">Hire Me</a>
+    <a class="btn-hire lang-id" href="#contact" onclick="closeMobileMenu()">Rekrut Saya</a>
+  </div>
+</div>
 
 <header class="hero wrap" id="home">
   <div class="hero-top">
