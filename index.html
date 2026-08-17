@@ -222,13 +222,43 @@
   }
 
   /* CONTACT */
-  .contact-box{
-    border:1px solid var(--surface-line); border-radius:var(--radius);
-    padding:48px; text-align:center; background:var(--bg-alt);
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .contact-info h2{font-size:clamp(26px,4vw,38px); margin:14px 0 16px;}
+  .contact-info p{color:var(--text-mute); font-size:15.5px; max-width:440px; margin-bottom:26px;}
+  .contact-email{
+    display:inline-flex; align-items:center; gap:10px; color:var(--signal);
+    font-family:'JetBrains Mono',monospace; font-size:14px; text-decoration:none;
+    margin-bottom:28px;
   }
-  .contact-box h2{font-size:clamp(24px,4vw,36px); margin-bottom:14px;}
-  .contact-box p{color:var(--text-mute); max-width:460px; margin:0 auto 30px;}
-  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .contact-email:hover{text-decoration:underline;}
+  .social-row{display:flex; gap:12px;}
+  .social-row a{
+    width:42px; height:42px; display:flex; align-items:center; justify-content:center;
+    background:var(--surface); border:1px solid var(--surface-line); border-radius:10px;
+    color:var(--text); transition:border-color .2s ease, color .2s ease;
+  }
+  .social-row a:hover{border-color:var(--signal); color:var(--signal);}
+
+  .contact-form{
+    background:var(--bg-alt); border:1px solid var(--surface-line); border-radius:var(--radius);
+    padding:32px;
+  }
+  .form-group{margin-bottom:20px;}
+  .form-group label{
+    display:block; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    color:var(--text-mute); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;
+  }
+  .form-group input, .form-group textarea{
+    width:100%; background:var(--surface); border:1px solid var(--surface-line);
+    border-radius:8px; padding:12px 14px; color:var(--text); font-family:'Inter',sans-serif;
+    font-size:14px; resize:vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus{outline:none; border-color:var(--signal);}
+  .form-group input::placeholder, .form-group textarea::placeholder{color:var(--text-mute);}
+
+  @media (max-width:760px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
 
   footer{border-top:1px solid var(--surface-line); padding:26px 0;}
   footer .wrap{display:flex; justify-content:space-between; font-size:12.5px; color:var(--text-mute); flex-wrap:wrap; gap:10px;}
@@ -533,18 +563,52 @@
 
 <section id="contact">
   <div class="wrap">
-    <div class="contact-box" data-reveal>
-      <div class="section-tag lang-en" style="justify-content:center; display:flex;">// contact</div>
-      <div class="section-tag lang-id" style="justify-content:center; display:flex;">// kontak</div>
-      <h2 class="lang-en">Got a manual process that's tiring to repeat?</h2>
-      <h2 class="lang-id">Ada proses manual yang capek dikerjakan berulang?</h2>
-      <p class="lang-en">Tell me the process, and let's see which parts can run on their own.</p>
-      <p class="lang-id">Ceritakan alurnya, dan mari lihat bagian mana yang bisa dijalankan otomatis.</p>
-      <div class="contact-links">
-        <a class="btn btn-primary lang-en" href="mailto:job.aslambik@gmail.com">Email Me</a>
-        <a class="btn btn-primary lang-id" href="mailto:job.aslambik@gmail.com">Email Saya</a>
-        <a class="btn btn-ghost" href="https://github.com/aslambik" target="_blank" rel="noopener">GitHub</a>
+    <div class="contact-grid" data-reveal>
+      <div class="contact-info">
+        <div class="section-tag lang-en">// contact</div>
+        <div class="section-tag lang-id">// kontak</div>
+        <h2 class="lang-en">Let's Work Together</h2>
+        <h2 class="lang-id">Mari Bekerja Sama</h2>
+        <p class="lang-en">Got a process you want to automate? Or want to learn how to do it yourself. Let's talk about your project.</p>
+        <p class="lang-id">Ada proses yang ingin diotomasi? Atau mau belajar cara buatnya sendiri. Mari bicarakan project kamu.</p>
+        <a class="contact-email" href="mailto:job.aslambik@gmail.com">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+          job.aslambik@gmail.com
+        </a>
+        <div class="social-row">
+          <a href="https://github.com/aslambik" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.79 10.78.57.1.78-.25.78-.55v-2.14c-3.17.69-3.84-1.36-3.84-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.33.95.1-.74.4-1.25.72-1.54-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.48 3.14-1.17 3.14-1.17.62 1.58.23 2.75.11 3.04.73.8 1.17 1.82 1.17 3.06 0 4.37-2.66 5.34-5.2 5.62.41.36.77 1.06.77 2.14v3.17c0 .3.21.66.79.55 4.52-1.51 7.78-5.76 7.78-10.78C23.02 5.24 18.27.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/muhammad-aslambik/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/muhammad_aslambik" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.87 5.87 0 0 0-1.38-2.13A5.87 5.87 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0Z"/></svg>
+          </a>
+        </div>
       </div>
+
+      <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <div class="form-group">
+          <label class="lang-en">Name</label>
+          <label class="lang-id">Nama</label>
+          <input type="text" name="name" required placeholder="Your Name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label class="lang-en">Message</label>
+          <label class="lang-id">Pesan</label>
+          <textarea name="message" required placeholder="How can I help you?" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary lang-en" style="width:100%; justify-content:center;">Send Message</button>
+        <button type="submit" class="btn btn-primary lang-id" style="width:100%; justify-content:center;">Kirim Pesan</button>
+        <p class="form-status lang-en" id="form-status-en" style="display:none; margin-top:12px; font-size:13px;"></p>
+        <p class="form-status lang-id" id="form-status-id" style="display:none; margin-top:12px; font-size:13px;"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -589,6 +653,40 @@
       });
     });
   });
+
+  const contactForm = document.getElementById('contact-form');
+  if(contactForm){
+    contactForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const statusEn = document.getElementById('form-status-en');
+      const statusId = document.getElementById('form-status-id');
+      const btns = contactForm.querySelectorAll('button[type="submit"]');
+      btns.forEach(b=>b.disabled = true);
+      try{
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        const data = await res.json();
+        if(data.success){
+          statusEn.style.display='block'; statusEn.style.color='var(--signal)';
+          statusEn.textContent = 'Message sent! I\'ll get back to you soon.';
+          statusId.style.display='block'; statusId.style.color='var(--signal)';
+          statusId.textContent = 'Pesan terkirim! Saya akan segera membalas.';
+          contactForm.reset();
+        } else {
+          throw new Error('failed');
+        }
+      } catch(err){
+        statusEn.style.display='block'; statusEn.style.color='var(--amber)';
+        statusEn.textContent = 'Something went wrong. Please email me directly instead.';
+        statusId.style.display='block'; statusId.style.color='var(--amber)';
+        statusId.textContent = 'Terjadi kesalahan. Silakan email saya langsung.';
+      }
+      btns.forEach(b=>b.disabled = false);
+    });
+  }
 
   const items = document.querySelectorAll('[data-reveal]');
   const io = new IntersectionObserver((entries)=>{
