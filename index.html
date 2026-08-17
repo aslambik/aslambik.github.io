@@ -648,15 +648,38 @@
   if(saved){ setLang(saved); }
 
   const navlinks = document.querySelectorAll('.navlinks a');
-  navlinks.forEach(link=>{
-    link.addEventListener('click', ()=>{
-      const target = link.getAttribute('href');
-      navlinks.forEach(l=>{
-        if(l.getAttribute('href') === target){ l.classList.add('active'); }
-        else { l.classList.remove('active'); }
-      });
+  const mobileLinks = document.querySelectorAll('.mobile-panel a[href^="#"]');
+
+  function setActiveLink(hash){
+    navlinks.forEach(l=>{
+      l.classList.toggle('active', l.getAttribute('href') === hash);
     });
+    mobileLinks.forEach(l=>{
+      l.classList.toggle('active', l.getAttribute('href') === hash);
+    });
+  }
+
+  navlinks.forEach(link=>{
+    link.addEventListener('click', ()=> setActiveLink(link.getAttribute('href')));
   });
+  mobileLinks.forEach(link=>{
+    link.addEventListener('click', ()=> setActiveLink(link.getAttribute('href')));
+  });
+
+  // Scroll-spy: highlight nav link based on which section is in view
+  const sections = ['home','about','skill','project','contact']
+    .map(id=>document.getElementById(id))
+    .filter(Boolean);
+
+  const sectionObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        setActiveLink('#' + entry.target.id);
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(sec=>sectionObserver.observe(sec));
 
   const contactForm = document.getElementById('contact-form');
   if(contactForm){
